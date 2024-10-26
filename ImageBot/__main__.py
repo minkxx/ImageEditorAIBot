@@ -6,6 +6,8 @@ from pyrogram import idle
 from ImageBot import bot, LOG_GROUP, BOT_NAME, BOT_USERNAME
 from ImageBot.modules import ALL_MODULES
 
+from ImageBot.utils.restart_bot import load_restart_msg
+
 HELPABLE = {}
 
 
@@ -41,6 +43,9 @@ async def start_bot():
     print("Sending online status!")
     await bot.send_message(LOG_GROUP, f"Bot started!\n@{BOT_USERNAME}")
     print("Sent!")
+    restart_msg = load_restart_msg()
+    if restart_msg:
+        await bot.edit_message_text(chat_id=restart_msg.chat.id, message_id=restart_msg.id, text="Bot restarted!")
     await idle()
 
 

@@ -54,6 +54,24 @@ about_keyboard = InlineKeyboardMarkup(
     ]
 )
 
+your_api_keyboard = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(text="Home", callback_data="home_data"),
+            InlineKeyboardButton(text="Help", callback_data="help_data"),
+        ],
+        [
+            InlineKeyboardButton(text="About", callback_data="about_data"),
+            InlineKeyboardButton(text="Set API", callback_data="set_api_data"),
+        ],
+        [
+            InlineKeyboardButton(text="Github Repo", url="https://github.com/minkxx"),
+            InlineKeyboardButton(text="Tutorial", callback_data="send_tutorial")
+        ],
+        [InlineKeyboardButton(text="Close", callback_data="close_data")],
+    ]
+)
+
 delete_api_keyboard = InlineKeyboardMarkup(
     [
         [InlineKeyboardButton(text="Delete API", callback_data="delete_api_data")],

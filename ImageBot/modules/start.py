@@ -100,12 +100,14 @@ async def set_api_data(c: bot, cbq: CallbackQuery):
 @bot.on_callback_query(filters.regex("your_api_data"))
 async def your_api_data(c: bot, cbq: CallbackQuery):
     data = get_user_api(cbq.message.chat.id)
+    text = ""
     if data:
         text =f'''**Your Cloudinary API data**
+        
 cloud_name: `{data["cloud_name"]}`
 api_key: `{data["api_key"]}`
 api_secret: `{data["api_secret"]}`'''
-        await c.send_message(chat_id=cbq.message.chat.id, text=text)
     else:
-        await c.send_message(chat_id=cbq.message.chat.id, text=f"You have not set an API key.")
+        text=f"You have not set an API key."
+    await cbq.message.edit(text=text, reply_markup=your_api_keyboard)
     

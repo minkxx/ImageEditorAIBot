@@ -17,6 +17,9 @@ MONGO_DB_URI = os.getenv("MONGO_DB_URI")
 LOG_GROUP = int(os.getenv("LOG_GROUP"))
 ADMIN_USERS_ID = [int(user_id) for user_id in os.getenv("ADMIN_USERS_ID").split()]
 FORCE_SUB_CHANNEL = int(os.getenv("FORCE_SUB_CHANNEL"))
+GITHUB_USERNAME = os.getenv("GITHUB_USERNAME", "minkxx")
+GITHUB_REPO_NAME = os.getenv("GITHUB_REPO_NAME", "ImageEditorAIBot")
+GITHUB_BRANCH = os.getenv("GITHUB_BRANCH", "master")
 
 if not API_ID:
     print("'API_ID' missing!")

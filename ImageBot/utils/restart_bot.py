@@ -38,7 +38,7 @@ async def restart(c, m):
         await x.edit_text(text=f"Bot is up to date with branch : {GITHUB_BRANCH}")
     await x.edit_text(text="Bot restarting...")
     store_restart_msg(x)
-    os.execv(sys.executable, ['python', '-m', 'ImageBot', *sys.argv[1:]])
+    os.execv(sys.executable, [sys.executable.split("\\")[-1].split(".")[0], '-m', 'ImageBot', *sys.argv[1:]])
 
 def store_restart_msg(msg:Message):
     with open("msg.dat", "wb") as f:

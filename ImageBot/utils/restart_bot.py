@@ -50,7 +50,7 @@ def load_restart_msg():
             data = pickle.load(f)
         if data:
             msg:Message = data
-            store_restart_msg({})
+            os.remove("msg.dat")
             return msg
         else:
             return False

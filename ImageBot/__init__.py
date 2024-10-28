@@ -6,7 +6,7 @@ from pyromod import Client
 load_dotenv()
 
 
-VERSION = "1.0.0"
+VERSION = "1.0.41"
 
 
 API_ID = int(os.getenv("API_ID"))
@@ -55,5 +55,4 @@ from ImageBot.database import get_connection
 
 mongo_connection = get_connection()
 users_api_collection = mongo_connection["users"]["users_api"]
-users_photo_ids_collection = mongo_connection["users"]["users_photo_ids"]
 users_ids_collection = mongo_connection["users"]["users_ids"]

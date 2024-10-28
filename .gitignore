@@ -1,6 +1,7 @@
 *.session
 *.session-journal
 *.env
+*.stackdump
 
 __pycache__/
 downloads/

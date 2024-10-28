@@ -1,5 +1,6 @@
 import requests
 
+
 def download_img_cloudinary(url, path):
     res = requests.get(url)
     if res.status_code == 200:

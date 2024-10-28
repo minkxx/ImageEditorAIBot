@@ -1,10 +1,6 @@
-from ImageBot import users_photo_ids_collection
+from ImageBot.services.cloudinary.load_client import load_api_client
+
 
 def get_user_photo_id(user_id):
-    user_id = str(user_id)
-    obj_doc = {user_id: {"$exists":True}}
-    obj = users_photo_ids_collection.find_one(obj_doc)
-    if not obj:
-        return []
-    else:
-        return obj[user_id]
+    api_cli = load_api_client(user_id)
+    return api_cli.get_photo_ids()

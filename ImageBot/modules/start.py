@@ -9,6 +9,7 @@ from ImageBot.utils.keyboards import *
 
 from ImageBot.decorators.force_sub import force_sub
 
+
 @bot.on_message(filters.command("start") & filters.private)
 @force_sub
 async def start(c: bot, m: Message):
@@ -52,10 +53,14 @@ And wallah you're good to go...
 
 Now to edit photos, just upload the photo from your gallery, and a handfull of features will appear beneath your photo to help you edit
 
+/uploaded - to get all your uploaded photos on cloudinary
+
 For more specific tutorial hit the **Tutorial** button.
 """
 
-    await cbq.message.edit(text=help_text, reply_markup=help_keyboard, disable_web_page_preview=True)
+    await cbq.message.edit(
+        text=help_text, reply_markup=help_keyboard, disable_web_page_preview=True
+    )
 
 
 @bot.on_callback_query(filters.regex("about_data"))
@@ -73,28 +78,39 @@ async def about_data(c: bot, cbq: CallbackQuery):
 async def close_data(c: bot, cbq: CallbackQuery):
     await cbq.message.delete()
 
+
 @bot.on_callback_query(filters.regex("set_api_data"))
 async def set_api_data(c: bot, cbq: CallbackQuery):
     user_id = cbq.message.chat.id
     if not get_user_api(user_id):
         user_fullname = cbq.message.chat.full_name
-        user_cloudinary_cloud_name = await c.ask(chat_id=cbq.message.chat.id, text="Enter your Cloudinary cloud_name")
-        user_cloudinary_api_key = await c.ask(chat_id=cbq.message.chat.id, text="Enter your Cloudinary api_key")
-        user_cloudinary_api_secret = await c.ask(chat_id=cbq.message.chat.id, text="Enter your Cloudinary api_secret")
+        user_cloudinary_cloud_name = await c.ask(
+            chat_id=cbq.message.chat.id, text="Enter your Cloudinary cloud_name"
+        )
+        user_cloudinary_api_key = await c.ask(
+            chat_id=cbq.message.chat.id, text="Enter your Cloudinary api_key"
+        )
+        user_cloudinary_api_secret = await c.ask(
+            chat_id=cbq.message.chat.id, text="Enter your Cloudinary api_secret"
+        )
         try:
             add_user_api(
                 user_id=user_id,
                 user_fullname=user_fullname,
                 user_cloudinary_cloud_name=user_cloudinary_cloud_name.text,
                 user_cloudinary_api_key=user_cloudinary_api_key.text,
-                user_cloudinary_api_secret=user_cloudinary_api_secret.text
+                user_cloudinary_api_secret=user_cloudinary_api_secret.text,
             )
-            await c.send_message(chat_id=cbq.message.chat.id, text="Successfully set API key!")
+            await c.send_message(
+                chat_id=cbq.message.chat.id, text="Successfully set API key!"
+            )
         except Exception as e:
             await c.send_message(chat_id=cbq.message.chat.id, text=f"Error!\n{e}")
 
     else:
-        await c.send_message(chat_id=cbq.message.chat.id, text=f"You have already set an API key.")
+        await c.send_message(
+            chat_id=cbq.message.chat.id, text=f"You have already set an API key."
+        )
 
 
 @bot.on_callback_query(filters.regex("your_api_data"))
@@ -102,12 +118,19 @@ async def your_api_data(c: bot, cbq: CallbackQuery):
     data = get_user_api(cbq.message.chat.id)
     text = ""
     if data:
-        text =f'''**Your Cloudinary API data**
+        text = f"""**Your Cloudinary API data**
         
 cloud_name: `{data["cloud_name"]}`
 api_key: `{data["api_key"]}`
-api_secret: `{data["api_secret"]}`'''
+api_secret: `{data["api_secret"]}`"""
     else:
-        text=f"You have not set an API key."
+        text = f"You have not set an API key."
     await cbq.message.edit(text=text, reply_markup=your_api_keyboard)
-    
+
+
+@bot.on_callback_query(filters.regex("send_tutorial"))
+async def your_api_data(c: bot, cbq: CallbackQuery):
+    await c.send_video(
+        chat_id=cbq.message.chat.id,
+        video="BAACAgUAAxkBAAIIQWcfh_ChIEI5Q7nAXXQp-z5JM1CqAAKiEQACHvwAAVWydgbE3jSi-h4E",
+    )

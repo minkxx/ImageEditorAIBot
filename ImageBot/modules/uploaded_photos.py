@@ -14,9 +14,11 @@ from ImageBot.decorators.force_sub import force_sub
 @check_api
 async def uploaded_photos(c: bot, m: Message):
     photo_ids = get_user_photo_id(m.chat.id)
-    
+
     if len(photo_ids) == 0:
-        await c.send_message(chat_id=m.chat.id, text="You haven't uploaded anything yet!")
+        await c.send_message(
+            chat_id=m.chat.id, text="You haven't uploaded anything yet!"
+        )
         return
 
     api_cli = load_api_client(m.chat.id)
